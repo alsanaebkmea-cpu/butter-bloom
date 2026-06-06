@@ -1,0 +1,579 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Butter Bloom – Cakes | Decors | Bouquets</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,500;0,700;1,500&family=Nunito:wght@300;400;600&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --pink:    #f4a7b9;
+      --pink-light: #fde8ef;
+      --pink-dark:  #e07a95;
+      --cream:   #fdf6f0;
+      --brown:   #7a4f3a;
+      --text:    #4a2f28;
+      --muted:   #a07870;
+      --white:   #ffffff;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--cream);
+      color: var(--text);
+      overflow-x: hidden;
+    }
+
+    /* ─── NAVBAR ─────────────────────────────────── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 100;
+      display: flex; align-items: center; justify-content: space-between;
+      padding: 1rem 2.5rem;
+      background: rgba(253,246,240,.88);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid #f9dde6;
+    }
+    .nav-logo {
+      display: flex; align-items: center; gap: .6rem;
+      font-family: 'Playfair Display', serif;
+      font-size: 1.4rem; color: var(--pink-dark); font-weight: 700;
+    }
+    .nav-logo span { font-size: .72rem; color: var(--muted); font-family: 'Nunito', sans-serif; font-weight: 400; letter-spacing: .05em; }
+    .nav-links { display: flex; gap: 2rem; list-style: none; }
+    .nav-links a {
+      text-decoration: none; color: var(--text); font-size: .9rem; font-weight: 600;
+      position: relative; transition: color .25s;
+    }
+    .nav-links a::after {
+      content: ''; position: absolute; bottom: -3px; left: 0; right: 0;
+      height: 2px; background: var(--pink); transform: scaleX(0);
+      transition: transform .25s; transform-origin: left;
+    }
+    .nav-links a:hover { color: var(--pink-dark); }
+    .nav-links a:hover::after { transform: scaleX(1); }
+    .nav-cta {
+      background: var(--pink-dark); color: #fff;
+      padding: .55rem 1.4rem; border-radius: 50px;
+      text-decoration: none; font-size: .88rem; font-weight: 600;
+      transition: background .25s, transform .2s;
+    }
+    .nav-cta:hover { background: var(--brown); transform: translateY(-2px); }
+
+    /* ─── HERO ───────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: flex; align-items: center;
+      padding: 6rem 2.5rem 3rem;
+      background: linear-gradient(135deg, #fde8ef 0%, #fdf6f0 60%, #fce9e0 100%);
+      position: relative; overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute; top: -80px; right: -80px;
+      width: 420px; height: 420px;
+      background: radial-gradient(circle, #f9c8d8 0%, transparent 70%);
+      border-radius: 50%; pointer-events: none;
+    }
+    .hero::after {
+      content: '';
+      position: absolute; bottom: -60px; left: -60px;
+      width: 300px; height: 300px;
+      background: radial-gradient(circle, #fde4c0 0%, transparent 70%);
+      border-radius: 50%; pointer-events: none;
+    }
+    .hero-text { flex: 1; max-width: 520px; z-index: 1; animation: fadeUp .8s ease both; }
+    .hero-badge {
+      display: inline-block;
+      background: var(--white); color: var(--pink-dark);
+      padding: .35rem 1rem; border-radius: 50px;
+      font-size: .78rem; font-weight: 700; letter-spacing: .06em;
+      margin-bottom: 1.2rem; box-shadow: 0 2px 12px #f4a7b930;
+    }
+    .hero h1 {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(2.4rem, 5vw, 3.8rem);
+      line-height: 1.15; color: var(--brown);
+      margin-bottom: 1.1rem;
+    }
+    .hero h1 em { font-style: italic; color: var(--pink-dark); }
+    .hero p {
+      font-size: 1.05rem; color: var(--muted);
+      line-height: 1.7; margin-bottom: 2rem;
+    }
+    .hero-btns { display: flex; gap: 1rem; flex-wrap: wrap; }
+    .btn-primary {
+      background: var(--pink-dark); color: #fff;
+      padding: .75rem 1.8rem; border-radius: 50px;
+      text-decoration: none; font-weight: 700; font-size: .95rem;
+      box-shadow: 0 6px 20px #e07a9540;
+      transition: transform .2s, box-shadow .2s;
+      display: flex; align-items: center; gap: .5rem;
+    }
+    .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 10px 28px #e07a9560; }
+    .btn-secondary {
+      background: transparent; color: var(--brown);
+      padding: .75rem 1.8rem; border-radius: 50px;
+      text-decoration: none; font-weight: 700; font-size: .95rem;
+      border: 2px solid var(--pink);
+      transition: background .25s, color .25s;
+    }
+    .btn-secondary:hover { background: var(--pink-light); }
+    .hero-image {
+      flex: 1; display: flex; justify-content: center; align-items: center;
+      z-index: 1; animation: floatIn 1s ease both;
+    }
+    .hero-image .cake-frame {
+      width: 340px; height: 340px; border-radius: 50%;
+      background: linear-gradient(145deg, #fce4ee, #fdf6f0);
+      box-shadow: 0 20px 60px #f4a7b940;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 10rem; position: relative;
+    }
+    .hero-image .cake-frame::before {
+      content: '🍓'; position: absolute;
+      top: 20px; right: 30px; font-size: 2.5rem;
+      animation: bounce 2s ease-in-out infinite;
+    }
+    .hero-image .cake-frame::after {
+      content: '🌸'; position: absolute;
+      bottom: 30px; left: 20px; font-size: 2rem;
+      animation: bounce 2.4s ease-in-out infinite;
+    }
+
+    /* floating decorative dots */
+    .dot {
+      position: absolute; border-radius: 50%; pointer-events: none;
+    }
+    .dot-1 { width:14px; height:14px; background:#f9c8d8; top:18%; left:8%; animation: float 4s ease-in-out infinite; }
+    .dot-2 { width:9px;  height:9px;  background:#fdd5a0; top:65%; left:5%; animation: float 5s ease-in-out infinite 1s; }
+    .dot-3 { width:12px; height:12px; background:#f4a7b9; top:30%; right:5%; animation: float 3.5s ease-in-out infinite .5s; }
+
+    /* ─── SECTION COMMON ─────────────────────────── */
+    section { padding: 5rem 2.5rem; }
+    .section-tag {
+      display: inline-block; background: var(--pink-light);
+      color: var(--pink-dark); font-size: .75rem; font-weight: 700;
+      letter-spacing: .1em; text-transform: uppercase;
+      padding: .3rem .9rem; border-radius: 50px; margin-bottom: .8rem;
+    }
+    .section-title {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.7rem);
+      color: var(--brown); line-height: 1.2; margin-bottom: .6rem;
+    }
+    .section-sub { color: var(--muted); font-size: 1rem; line-height: 1.65; max-width: 560px; }
+
+    /* ─── MENU ───────────────────────────────────── */
+    #menu { background: var(--white); }
+    .menu-header { text-align: center; margin-bottom: 3rem; }
+    .menu-header .section-sub { margin: 0 auto; }
+    .menu-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1.8rem; max-width: 1100px; margin: 0 auto;
+    }
+    .menu-card {
+      background: var(--cream); border-radius: 20px;
+      padding: 1.8rem 1.5rem; text-align: center;
+      border: 1.5px solid #f9dde6;
+      transition: transform .3s, box-shadow .3s;
+      position: relative; overflow: hidden;
+    }
+    .menu-card::before {
+      content: ''; position: absolute; top: 0; left: 0; right: 0;
+      height: 4px; background: linear-gradient(90deg, var(--pink), var(--pink-dark));
+      opacity: 0; transition: opacity .3s;
+    }
+    .menu-card:hover { transform: translateY(-8px); box-shadow: 0 16px 40px #f4a7b925; }
+    .menu-card:hover::before { opacity: 1; }
+    .menu-emoji { font-size: 3.5rem; margin-bottom: .8rem; display: block; }
+    .menu-card h3 {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.25rem; color: var(--brown); margin-bottom: .4rem;
+    }
+    .menu-card p { font-size: .88rem; color: var(--muted); line-height: 1.6; margin-bottom: 1rem; }
+    .menu-tag {
+      display: inline-block; background: var(--pink-light);
+      color: var(--pink-dark); font-size: .75rem; font-weight: 700;
+      padding: .2rem .8rem; border-radius: 50px;
+    }
+    .whatsapp-order {
+      display: block; text-align: center; margin-top: 2.8rem;
+    }
+    .btn-whatsapp {
+      display: inline-flex; align-items: center; gap: .6rem;
+      background: #25d366; color: #fff;
+      padding: .8rem 2rem; border-radius: 50px;
+      font-weight: 700; font-size: 1rem; text-decoration: none;
+      box-shadow: 0 6px 20px #25d36640;
+      transition: transform .2s, box-shadow .2s;
+    }
+    .btn-whatsapp:hover { transform: translateY(-3px); box-shadow: 0 10px 28px #25d36660; }
+    .btn-whatsapp svg { width: 20px; height: 20px; fill: currentColor; }
+
+    /* ─── ABOUT ──────────────────────────────────── */
+    #about {
+      display: flex; align-items: center; gap: 4rem;
+      background: linear-gradient(135deg, #fde8ef 0%, #fdf6f0 100%);
+      flex-wrap: wrap;
+    }
+    .about-visual {
+      flex: 0 0 300px;
+      display: flex; align-items: center; justify-content: center;
+    }
+    .about-bubble {
+      width: 280px; height: 280px; border-radius: 50%;
+      background: linear-gradient(135deg, #fce4ee, #ffd9c8);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 7rem;
+      box-shadow: 0 16px 48px #f4a7b935, inset 0 -8px 20px #fff4;
+      position: relative;
+    }
+    .about-bubble::after {
+      content: '✨'; position: absolute;
+      top: 10px; right: 20px; font-size: 1.8rem;
+      animation: bounce 3s ease-in-out infinite;
+    }
+    .about-text { flex: 1; min-width: 260px; }
+    .about-text .section-sub { margin-bottom: 1.5rem; }
+    .about-pills { display: flex; flex-wrap: wrap; gap: .6rem; }
+    .pill {
+      background: #fff; border: 1.5px solid var(--pink);
+      color: var(--brown); padding: .4rem 1rem;
+      border-radius: 50px; font-size: .82rem; font-weight: 600;
+    }
+
+    /* ─── CONTACT ────────────────────────────────── */
+    #contact { background: var(--white); }
+    .contact-wrap {
+      max-width: 620px; margin: 0 auto; text-align: center;
+    }
+    .contact-wrap .section-title { margin-bottom: .6rem; }
+    .contact-wrap .section-sub { margin: 0 auto 2.2rem; }
+    .contact-form { display: flex; flex-direction: column; gap: 1rem; text-align: left; }
+    .form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+    .form-group { display: flex; flex-direction: column; gap: .4rem; }
+    .form-group label { font-size: .82rem; font-weight: 700; color: var(--brown); }
+    .form-group input,
+    .form-group select,
+    .form-group textarea {
+      padding: .75rem 1rem; border-radius: 12px;
+      border: 1.5px solid #f0ccd8; background: var(--cream);
+      font-family: 'Nunito', sans-serif; font-size: .9rem; color: var(--text);
+      outline: none; transition: border-color .25s, box-shadow .25s;
+      resize: vertical;
+    }
+    .form-group input:focus,
+    .form-group select:focus,
+    .form-group textarea:focus {
+      border-color: var(--pink-dark);
+      box-shadow: 0 0 0 3px #f4a7b930;
+    }
+    .form-submit {
+      background: var(--pink-dark); color: #fff;
+      padding: .85rem; border-radius: 50px;
+      border: none; font-family: 'Nunito', sans-serif;
+      font-size: 1rem; font-weight: 700; cursor: pointer;
+      transition: background .25s, transform .2s;
+      margin-top: .5rem;
+    }
+    .form-submit:hover { background: var(--brown); transform: translateY(-2px); }
+    .contact-or {
+      text-align: center; margin: 1.5rem 0 .5rem;
+      font-size: .85rem; color: var(--muted); font-weight: 600;
+      position: relative;
+    }
+    .contact-or::before, .contact-or::after {
+      content: ''; position: absolute; top: 50%;
+      width: 38%; height: 1px; background: #f0ccd8;
+    }
+    .contact-or::before { left: 0; }
+    .contact-or::after { right: 0; }
+    .contact-wa {
+      display: flex; align-items: center; justify-content: center; gap: .5rem;
+      background: #25d366; color: #fff;
+      padding: .8rem; border-radius: 50px; text-decoration: none;
+      font-weight: 700; font-size: .95rem;
+      transition: background .25s, transform .2s;
+    }
+    .contact-wa:hover { background: #1ebe5b; transform: translateY(-2px); }
+    .contact-wa svg { width: 20px; height: 20px; fill: currentColor; }
+
+    /* ─── FOOTER ─────────────────────────────────── */
+    footer {
+      background: var(--brown); color: #fde8ef;
+      text-align: center; padding: 2.5rem 2rem;
+    }
+    footer .footer-brand {
+      font-family: 'Playfair Display', serif;
+      font-size: 1.6rem; margin-bottom: .3rem; color: #fff;
+    }
+    footer .footer-sub { font-size: .82rem; opacity: .7; margin-bottom: 1.2rem; }
+    footer .footer-links { display: flex; justify-content: center; gap: 1.5rem; flex-wrap: wrap; }
+    footer .footer-links a {
+      color: #fde8ef; text-decoration: none; font-size: .84rem;
+      opacity: .75; transition: opacity .2s;
+    }
+    footer .footer-links a:hover { opacity: 1; }
+    footer .footer-copy { margin-top: 1.5rem; font-size: .78rem; opacity: .5; }
+
+    /* ─── ANIMATIONS ─────────────────────────────── */
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes floatIn {
+      from { opacity: 0; transform: scale(.85); }
+      to   { opacity: 1; transform: scale(1); }
+    }
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50%       { transform: translateY(-12px); }
+    }
+    @keyframes bounce {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      50%       { transform: translateY(-8px) rotate(8deg); }
+    }
+
+    /* ─── SCROLL REVEAL ──────────────────────────── */
+    .reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s ease, transform .7s ease; }
+    .reveal.visible { opacity: 1; transform: translateY(0); }
+
+    /* ─── RESPONSIVE ─────────────────────────────── */
+    @media (max-width: 700px) {
+      nav { padding: .9rem 1.2rem; }
+      .nav-links { display: none; }
+      .hero { flex-direction: column; text-align: center; padding: 5.5rem 1.2rem 2.5rem; }
+      .hero-btns { justify-content: center; }
+      .hero-image .cake-frame { width: 220px; height: 220px; font-size: 6rem; }
+      #about { flex-direction: column; text-align: center; }
+      .about-pills { justify-content: center; }
+      .form-row { grid-template-columns: 1fr; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ── NAVBAR ─────────────────────────────────── -->
+  <nav>
+    <div class="nav-logo">
+      🎂
+      <div>
+        Butter Bloom
+        <span style="display:block">Cakes · Decors · Bouquets</span>
+      </div>
+    </div>
+    <ul class="nav-links">
+      <li><a href="#menu">Menu</a></li>
+      <li><a href="#about">About</a></li>
+      <li><a href="#contact">Order</a></li>
+    </ul>
+    <a href="https://wa.me/91XXXXXXXXXX" class="nav-cta" target="_blank">Order Now 🍰</a>
+  </nav>
+
+  <!-- ── HERO ───────────────────────────────────── -->
+  <section class="hero">
+    <div class="dot dot-1"></div>
+    <div class="dot dot-2"></div>
+    <div class="dot dot-3"></div>
+
+    <div class="hero-text">
+      <div class="hero-badge">🌸 Homemade with love</div>
+      <h1>Sweet Moments<br><em>Start Here</em></h1>
+      <p>Custom cakes, dreamy decors & blooming bouquets — crafted fresh for your every celebration.</p>
+      <div class="hero-btns">
+        <a href="#menu" class="btn-primary">🎂 See Our Menu</a>
+        <a href="#contact" class="btn-secondary">Place an Order</a>
+      </div>
+    </div>
+
+    <div class="hero-image">
+      <div class="cake-frame">🎂</div>
+    </div>
+  </section>
+
+  <!-- ── MENU ───────────────────────────────────── -->
+  <section id="menu">
+    <div class="menu-header reveal">
+      <div class="section-tag">🍰 What We Offer</div>
+      <h2 class="section-title">Our Specialties</h2>
+      <p class="section-sub">Every item is made fresh to order — no preservatives, only pure love and butter.</p>
+    </div>
+
+    <div class="menu-grid">
+      <div class="menu-card reveal">
+        <span class="menu-emoji">🎂</span>
+        <h3>Custom Cakes</h3>
+        <p>Birthday, wedding, anniversary — any occasion. Pick your flavour, theme & size.</p>
+        <span class="menu-tag">Made to Order</span>
+      </div>
+      <div class="menu-card reveal">
+        <span class="menu-emoji">🧁</span>
+        <h3>Cupcakes</h3>
+        <p>Individually decorated, perfectly portioned cupcakes for parties & gifting.</p>
+        <span class="menu-tag">Box of 6 / 12</span>
+      </div>
+      <div class="menu-card reveal">
+        <span class="menu-emoji">🍰</span>
+        <h3>Jar Cakes</h3>
+        <p>Layered with cream & sponge — our jar cakes are a crowd favourite for gifting.</p>
+        <span class="menu-tag">Best Seller</span>
+      </div>
+      <div class="menu-card reveal">
+        <span class="menu-emoji">💐</span>
+        <h3>Bouquets</h3>
+        <p>Beautiful floral bouquets to pair with your cake — the perfect combo gift.</p>
+        <span class="menu-tag">Fresh Flowers</span>
+      </div>
+      <div class="menu-card reveal">
+        <span class="menu-emoji">🎀</span>
+        <h3>Decors & Hampers</h3>
+        <p>Custom decor for your table or room — balloons, banners & curated hampers.</p>
+        <span class="menu-tag">Party Ready</span>
+      </div>
+      <div class="menu-card reveal">
+        <span class="menu-emoji">🍫</span>
+        <h3>Chocolate Boxes</h3>
+        <p>Handcrafted chocolates in beautiful boxes — the sweetest way to say anything.</p>
+        <span class="menu-tag">Seasonal</span>
+      </div>
+    </div>
+
+    <div class="whatsapp-order reveal">
+      <a href="https://wa.me/91XXXXXXXXXX?text=Hi%20Butter%20Bloom!%20I%20want%20to%20place%20an%20order%20%F0%9F%8E%82"
+         class="btn-whatsapp" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        Chat with us on WhatsApp
+      </a>
+    </div>
+  </section>
+
+  <!-- ── ABOUT ──────────────────────────────────── -->
+  <section id="about">
+    <div class="about-visual reveal">
+      <div class="about-bubble">🌸</div>
+    </div>
+    <div class="about-text reveal">
+      <div class="section-tag">🎀 About Us</div>
+      <h2 class="section-title">Baked with butter,<br>bloomed with love</h2>
+      <p class="section-sub">
+        Butter Bloom is a homemade bakery passionate about making every celebration sweeter.
+        We bake, decorate, and deliver cakes that look as beautiful as they taste —
+        using only the finest ingredients, no shortcuts.
+      </p>
+      <div class="about-pills">
+        <span class="pill">🧈 Fresh Ingredients</span>
+        <span class="pill">🎨 Custom Themes</span>
+        <span class="pill">📦 Safe Delivery</span>
+        <span class="pill">💌 Gift Packing</span>
+        <span class="pill">🌸 Bouquets Too!</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── CONTACT ────────────────────────────────── -->
+  <section id="contact">
+    <div class="contact-wrap reveal">
+      <div class="section-tag">📩 Get In Touch</div>
+      <h2 class="section-title">Place Your Order</h2>
+      <p class="section-sub">Fill the form below and we'll get back to you within a few hours. Or just WhatsApp us directly!</p>
+
+      <form class="contact-form" onsubmit="handleOrder(event)">
+        <div class="form-row">
+          <div class="form-group">
+            <label>Your Name</label>
+            <input type="text" id="fname" placeholder="e.g. Aisha" required />
+          </div>
+          <div class="form-group">
+            <label>Phone Number</label>
+            <input type="tel" id="fphone" placeholder="+91 XXXXX XXXXX" required />
+          </div>
+        </div>
+        <div class="form-group">
+          <label>What would you like?</label>
+          <select id="fitem" required>
+            <option value="">– Select an item –</option>
+            <option>Custom Cake</option>
+            <option>Cupcakes</option>
+            <option>Jar Cakes</option>
+            <option>Bouquet</option>
+            <option>Decor / Hamper</option>
+            <option>Chocolate Box</option>
+            <option>Combo (Cake + Bouquet)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label>Event Date</label>
+          <input type="date" id="fdate" required />
+        </div>
+        <div class="form-group">
+          <label>Special Requests / Details</label>
+          <textarea id="fnote" rows="3" placeholder="Flavour, theme, message on cake, delivery area…"></textarea>
+        </div>
+        <button type="submit" class="form-submit">Send My Order 🎂</button>
+      </form>
+
+      <div class="contact-or">or</div>
+
+      <a href="https://wa.me/91XXXXXXXXXX?text=Hi%20Butter%20Bloom!%20I%20want%20to%20place%20an%20order%20%F0%9F%8E%82"
+         class="contact-wa" target="_blank">
+        <svg viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+        WhatsApp Us Directly
+      </a>
+    </div>
+  </section>
+
+  <!-- ── FOOTER ─────────────────────────────────── -->
+  <footer>
+    <div class="footer-brand">🎂 Butter Bloom</div>
+    <div class="footer-sub">Cakes · Decors · Bouquets · Made with Love</div>
+    <div class="footer-links">
+      <a href="#menu">Menu</a>
+      <a href="#about">About</a>
+      <a href="#contact">Order</a>
+      <a href="https://wa.me/91XXXXXXXXXX" target="_blank">WhatsApp</a>
+    </div>
+    <div class="footer-copy">© 2025 Butter Bloom. All rights reserved.</div>
+  </footer>
+
+  <script>
+    // ─── Scroll reveal ───────────────────────────
+    const revealEls = document.querySelectorAll('.reveal');
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((e, i) => {
+        if (e.isIntersecting) {
+          setTimeout(() => e.target.classList.add('visible'), i * 80);
+          observer.unobserve(e.target);
+        }
+      });
+    }, { threshold: 0.12 });
+    revealEls.forEach(el => observer.observe(el));
+
+    // ─── Order form → WhatsApp ───────────────────
+    function handleOrder(e) {
+      e.preventDefault();
+      const name  = document.getElementById('fname').value;
+      const phone = document.getElementById('fphone').value;
+      const item  = document.getElementById('fitem').value;
+      const date  = document.getElementById('fdate').value;
+      const note  = document.getElementById('fnote').value;
+
+      const msg = encodeURIComponent(
+        `Hi Butter Bloom! 🎂\n\n` +
+        `*Name:* ${name}\n` +
+        `*Phone:* ${phone}\n` +
+        `*Item:* ${item}\n` +
+        `*Event Date:* ${date}\n` +
+        `*Details:* ${note || 'None'}\n\n` +
+        `Looking forward to your reply! 🌸`
+      );
+      // Replace XXXXXXXXXX with your actual WhatsApp number
+      window.open(`https://wa.me/91XXXXXXXXXX?text=${msg}`, '_blank');
+    }
+  </script>
+</body>
+</html>
